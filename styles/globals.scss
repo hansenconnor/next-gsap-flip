@@ -1,0 +1,87 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: white;
+    background: black;
+  }
+}
+
+svg {
+  margin-left: auto;
+  width: 20px;
+  opacity: 0.7;
+}
+
+.icons {
+  position: absolute;
+  bottom: 100%;
+  width: 200px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, auto);
+}
+
+.contain {
+  max-width: 800px;
+  padding: 0 4rem;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+}
+
+.home {
+  .avatar { grid-area: 1 / 1 / 3 / 3; }
+  .potion { grid-area: 3 / 1 / 4 / 2; }
+  .spell { grid-area: 3 / 2 / 4 / 3; }
+  
+  .spell, .potion {
+    width: 70px;
+    align-self: start;
+    justify-self: center;
+  }
+}
+
+.potions {
+  .potion { grid-area: 1 / 1 / 3 / 3; }
+  .avatar { grid-area: 3 / 1 / 4 / 2; }
+  .spell { grid-area: 3 / 2 / 4 / 3; }
+  
+  .spell, .avatar {
+    width: 70px;
+    align-self: start;
+    justify-self: center;
+  }
+}
+
+.spells {
+  .spell { grid-area: 1 / 1 / 3 / 3; }
+  .avatar { grid-area: 3 / 1 / 4 / 2; }
+  .potion { grid-area: 3 / 2 / 4 / 3; }
+  
+  .potion, .avatar {
+    width: 70px;
+    align-self: start;
+    justify-self: center;
+  }
+}
