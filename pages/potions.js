@@ -22,7 +22,6 @@ function Potions() {
         targets: flipEls,
         absolute: true,
         ease: "sine.inOut",
-        delay: 1,
       });
     }
 
