@@ -38,6 +38,10 @@ svg {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, auto);
+
+  .flipMe {
+    position: relative;
+  }
 }
 
 .contain {
@@ -56,7 +60,8 @@ footer {
   .spell { grid-area: 3 / 2 / 4 / 3; }
   
   .spell, .potion {
-    width: 70px;
+    width: 100px !important;
+    height: 100px !important;
     align-self: start;
     justify-self: center;
   }
@@ -68,7 +73,8 @@ footer {
   .spell { grid-area: 3 / 2 / 4 / 3; }
   
   .spell, .avatar {
-    width: 70px;
+    width: 100px !important;
+    height: 100px !important;
     align-self: start;
     justify-self: center;
   }
@@ -80,7 +86,8 @@ footer {
   .potion { grid-area: 3 / 2 / 4 / 3; }
   
   .potion, .avatar {
-    width: 70px;
+    width: 100px !important;
+    height: 100px !important;
     align-self: start;
     justify-self: center;
   }

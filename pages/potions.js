@@ -1,32 +1,35 @@
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import { FlipContext } from "../context/flip-context";
-import { useContext, useEffect, useRef } from "react";
-import { gsap } from "gsap";
 import { Flip } from "gsap/dist/Flip";
+import { FlipContext } from "../context/flip-context";
+import { gsap } from "gsap/dist/gsap";
+import Image from "next/image";
 import Link from "next/link";
+import styles from "../styles/Home.module.css";
+import { useContext, useEffect, useRef } from "react";
 
 function Potions() {
   gsap.registerPlugin(Flip);
-
   const { lastState } = useContext(FlipContext);
   const { dispatchFlipStateEvent } = useContext(FlipContext);
-  const flipRef = useRef();
+  const iconRef = useRef();
 
   useEffect(() => {
-    console.log("lastState: ");
-    console.log(lastState);
+    let q = gsap.utils.selector(iconRef);
+    let flipEls = q(".flipMe");
+
+    if (flipEls && lastState) {
+      console.log("lastState", lastState);
+      Flip.from(lastState, {
+        targets: flipEls,
+        absolute: true,
+        ease: "sine.inOut",
+        delay: 1,
+      });
+    }
+
     return () => {
-      if (flipRef) {
-        dispatchFlipStateEvent(Flip.getState(flipRef.current));
-      }
+      dispatchFlipStateEvent(Flip.getState(flipEls));
     };
   }, []);
-
-  const setFlipState = () => {
-    dispatchFlipStateEvent(flipRef);
-  };
 
   return (
     <div className="potions">
@@ -44,10 +47,16 @@ function Potions() {
         <Link href="/spells">Spells</Link>
       </main>
       <footer className="contain">
-        <div className="icons">
-          <img className="avatar flipMe" src="/person.svg" />
-          <img className="potion flipMe" src="/potions.svg" />
-          <img className="spell flipMe" src="/spell.svg" />
+        <div className="icons" ref={iconRef}>
+          <div className="avatar flipMe">
+            <Image alt="asdf" layout="fill" src="/person.svg" />
+          </div>
+          <div className="potion flipMe">
+            <Image alt="asdf" layout="fill" src="/potions.svg" />
+          </div>
+          <div className="spell flipMe">
+            <Image alt="asdf" layout="fill" src="/spell.svg" />
+          </div>
         </div>
       </footer>
     </div>
