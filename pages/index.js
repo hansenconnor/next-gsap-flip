@@ -2,57 +2,56 @@ import { Flip } from "gsap/dist/Flip";
 import { FlipContext } from "../context/flip-context";
 import { gsap } from "gsap/dist/gsap";
 import Image from "next/image";
-import Link from "next/link";
-import styles from "../styles/Home.module.css";
 import { useContext, useEffect, useRef } from "react";
+import Layout from "../components/layout";
 
-function Home() {
+function Home({ props }) {
   gsap.registerPlugin(Flip);
-  const { lastState } = useContext(FlipContext);
-  const { dispatchFlipStateEvent } = useContext(FlipContext);
+  const { lastState, dispatchFlipStateEvent } = useContext(FlipContext);
   const iconRef = useRef();
+  let flipEls = null;
 
   useEffect(() => {
     let q = gsap.utils.selector(iconRef);
-    let flipEls = q(".flipMe");
+    flipEls = q(".flipMe");
+    console.log("flip els use effect", Flip.getState(flipEls));
 
     if (flipEls && lastState) {
-      console.log("lastState", lastState);
       Flip.from(lastState, {
         targets: flipEls,
-        absolute: true,
         ease: "sine.inOut",
+        duration: 0.5,
       });
     }
 
     return () => {
-      dispatchFlipStateEvent(Flip.getState(flipEls));
+      console.log("flip els use cleanup", Flip.getState(flipEls));
+      let leavingState = Flip.getState(flipEls);
+      dispatchFlipStateEvent(leavingState);
     };
   }, []);
 
   return (
-    <div className="home">
-      <main className={styles.main}>
-        <h1 className={styles.title}>Potions</h1>
-        <Link href="/">Home</Link>
-        <Link href="/potions">Potions</Link>
-        <Link href="/spells">Spells</Link>
-      </main>
-      <footer className="contain">
-        <div className="icons" ref={iconRef}>
-          <div className="avatar flipMe">
-            <Image alt="asdf" layout="fill" src="/person.svg" />
-          </div>
-          <div className="potion flipMe">
-            <Image alt="asdf" layout="fill" src="/potions.svg" />
-          </div>
-          <div className="spell flipMe">
-            <Image alt="asdf" layout="fill" src="/spell.svg" />
-          </div>
-        </div>
-      </footer>
+    <div className="icons" ref={iconRef}>
+      <div className="avatar flipMe" data-flip-id="person">
+        <Image alt="asdf" layout="fill" src="/person.svg" />
+      </div>
+      <div className="potion flipMe" data-flip-id="potion">
+        <Image alt="asdf" layout="fill" src="/potions.svg" />
+      </div>
+      <div className="spell flipMe" data-flip-id="spell">
+        <Image alt="asdf" layout="fill" src="/spell.svg" />
+      </div>
     </div>
   );
 }
+
+Home.getLayout = function getLayout(page) {
+  return (
+    <Layout classname="home" pageTitle="home">
+      {page}
+    </Layout>
+  );
+};
 
 export default Home;
